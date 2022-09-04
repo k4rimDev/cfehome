@@ -22,13 +22,17 @@ from products.serializers import ProductSerializer
 #     return JsonResponse(data)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def api_home(request, *args, **kwargs):
     """
     DRF API VIEW
     """
+    serializer = ProductSerializer(data = request.data)
     instance = Product.objects.all().order_by("?").first()
-    data = {}
-    if instance: 
-        data = ProductSerializer(instance).data
-    return Response(data)
+    if serializer.is_valid(raise_exception=True):
+        # serializer.save()
+        return Response(serializer.data)
+    # data = {}
+    # if instance: 
+    #     data = ProductSerializer(instance).data
+    # return Response(data)
