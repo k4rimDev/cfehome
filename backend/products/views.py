@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from products.models import Product
 from products.serializers import ProductSerializer
 
+
 class ProductCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -24,7 +25,8 @@ class ProductCreateAPIView(generics.ListCreateAPIView):
 class ProoductDetailAPIView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    # lookup_field = 'pk'
+    lookup_field = 'pk'
+
 
 class ProoductUpdateAPIView(generics.UpdateAPIView):
     queryset = Product.objects.all()
@@ -35,7 +37,6 @@ class ProoductUpdateAPIView(generics.UpdateAPIView):
         instance = serializer.save()
         if not instance.content:
             instance.content = instance.title
-
 
 
 class ProoductDestroyAPIView(generics.DestroyAPIView):
